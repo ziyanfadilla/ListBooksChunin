@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>week 2 chunin </title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+  <div class="container">
+    <h2>Kategori buku</h2>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#addkategori">TAMBAH KATEGORI</button>
+    <br></br>
+
+    <table class="table" id="tabelkategori">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">id Kategori</th>
+          <th scope="col">Kategori</th>
+          <th scope="col">action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each kategori }}
+        <tr>
+          <td>{{ id_kategori }}</td>
+          <td>{{ kategori }}</td>
+          <td>
+            <a href="javascript:void(0);" class="btn btn-warning edit" id="btn-edit" data-id="{{id_kategori}}"
+              data-kategori="{{ kategori }}">Edit</a>
+            <a href="javascript:void(0);" class="btn btn-danger delete" data-id="{{id_kategori}}"
+              data-target="#deletehapus">Delete</a>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    {{!-- tambah kategori --}}
+
+    <form action="/views/kategori/save" method="post">
+      <div class="modal fade" id="addkategori" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Tambah Kategori </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+              <div class="form-group">
+                <input type="text" name="kategori" class="form-control" placeholder="kategori" required>
+              </div>
+
+              <div class="modal-footer">
+                <input type="hidden" name="id" class="id_kategori">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">kembali</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    {{!-- update kategori --}}
+
+    <form action="/views/kategori/update" method="post">
+      <div class="modal fade" id="editKategori" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Ubah Kategori </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+              <div class="form-group">
+                <input type="hidden" name="id_kategori" id="id_kategori">
+                <input type="text" name="kategori" class="form-control" id="kategori_edit" placeholder="kategori"
+                  required>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <input type="hidden" name="id" class="id_kategori">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">kembali</button>
+              <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    {{!-- delete kategori --}}
+    <form action="/views/kategori/delete" id="add-row-form" method="post">
+      <div class="modal" id="deletekategori" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">hapus data</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Apakah anda yakin ingin menghapus data ini </p>
+              <input type="text" name="id" class="id" hidden id="id2"><br></br>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Hapus</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+
+
+    <script>
+
+      $(document).ready(function () {
+        $('#tabelkategori').on('click', '.edit', function () {
+          let id_kategori = $(this).data('id');
+          let kategori = $(this).data('kategori');
+          $('#editKategori').modal('show');
+          $('#id_kategori').val(id_kategori);
+          $('#kategori_edit').val(kategori)
+
+
+        });
+
+        $('#tabelkategori').on('click', '.delete', function () {
+          let id_kategori = $(this).data('id');
+          $('#deletekategori').modal('show');
+          $('#id2').val(id_kategori);
+        });
+      });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>week 2 chunin </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+  <div class="container">
+    <h2>DATA BUKU</h2>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#addbuku">TAMBAH BUKU</button>
+    <br></br>
+    
+    <table class="table" id="tabelbuku">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">id buku </th>
+          <th scope="col">judul</th>
+          <th scope="col">tahun_terbit</th>
+          <th scope="col">penerbit</th>
+          <th scope="col">action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each results }}
+        <tr>
+          <td>{{ id_buku }}</td>
+          <td>{{ judul }}</td>
+          <td>{{tahun_terbit}}</td>
+          <td>{{penerbit}}</td>
+          <td>
+            <a href="javascript:void(0);" class="btn btn-warning edit" data-id="{{id_buku}}" data-judul="{{ judul }}" data-tahun_terbit="{{tahun_terbit}}" data-penerbit ="{{penerbit}}">Edit</a>
+            <a href="javascript:void(0);" class="btn btn-danger delete" data-id="{{id_buku}}" data-target="#deletehapus">Delete</a>
+          </td>
+        </tr>
+        {{/each}}
+     </tbody>
+    </table>
+  </div>
+
+{{!-- tambah buku  --}}
+  <form action="/save" method="post">
+  <div class="modal fade" id="addbuku" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Tambah Buku </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <input type="text" name="judul" class="form-control" placeholder="judul buku" required>
+        </div>
+
+        <div class="form-group">
+          <input type="text" name="tahun_terbit" class="form-control" placeholder="tahun terbit" required>
+        </div>
+
+        <div class="form-group">
+          <input type="text" name="penerbit" class="form-control" placeholder="penerbit" required>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <input type="hidden" name="id" class="id_buku">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">kembali</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+      </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+{{!-- update buku --}}
+  <form action="/update" method="post">
+  <div class="modal fade" id="editbuku" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Ubah data buku</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <input type="text" name="id" hidden id="id"><br></br>
+          <input type="text" name="judul" class="form-control" id="judul_edit" placeholder="judul buku" required>
+        </div>
+
+        <div class="form-group">
+          <input type="text" name="tahun_terbit" class="form-control" id="tahun_terbit_edit" placeholder="tahun terbit" required>
+        </div>
+
+        <div class="form-group">
+          <input type="text" name="penerbit" class="form-control" id="penerbit_edit" placeholder="penerbit" required>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismicss="modal">Kembali</button>
+        <button type="submit" class="btn btn-primary" id="editbuku">Ubah</button>
+      </div>
+      </div>
+      </div>
+    </div>  
+  </form>
+
+  {{!-- hapus data  --}}
+  <form action="/delete" id="add-row-form" method="post">
+  <div class="modal" id="deletebuku" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">hapus data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+          </div>
+          <div class="modal-body">
+            <p>Apakah anda yakin ingin menghapus data ini </p>
+            <input type="text" name="id" class="id" hidden id="id2"><br></br>
+          </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Hapus</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function(){
+    $('#tabelbuku').on('click','.edit', function(){
+      let id_buku = $(this).data('id');
+      let judul = $(this).data('judul');
+      let tahun_terbit = $(this).data('tahun_terbit');
+      let penerbit = $(this).data('penerbit');
+      console.log($(this).data('id'));
+      console.log($(this).data('judul'));
+      console.log($(this).data('tahun_terbit'));
+      console.log($(this).data('penerbit'));
+      $('#editbuku').modal('show');
+      $('#id').val(id_buku);
+      $('#judul_edit').val(judul);
+      $('#tahun_terbit_edit').val(tahun_terbit);
+      $('#penerbit_edit').val(penerbit);
+
+    });
+
+    $('#tabelbuku').on('click','.delete', function(){
+      var id_buku = $(this).data('id');
+      $('#deletebuku').modal('show');
+      $('#id2').val(id_buku);
+    });
+  });
+</script>
+</body>
+</html>

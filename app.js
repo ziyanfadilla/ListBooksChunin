@@ -167,6 +167,6 @@ app.post('/views/kategori/delete',(req,res) =>{
 }) 
 
 //server listening
-app.listen(3001, () => {
+app.listen(process.env.PORT || 3001, () => {
     console.log('server running at port 3001');
 });

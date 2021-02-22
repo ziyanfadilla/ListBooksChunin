@@ -68,11 +68,11 @@ app.post('/update',(req,res) => {
     console.log(sql);
     let query = conn.query(sql,(err, results) => {
         if(err) throw err;
-        // res.redirect('/');
-        res.json({
-            msg: 'success',
-            results:results
-        });
+        res.redirect('/');
+        // res.json({
+        //     msg: 'success',
+        //     results:results
+        // });
     });
 });
 

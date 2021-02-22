@@ -81,11 +81,11 @@ app.post('/delete', (req, res) => {
     let sql= "DELETE FROM buku WHERE id_buku = '" +req.body.id+"'";
     let query = conn.query(sql,(err, results) => {
         if(err) throw err;
-        // res.redirect('/');
-        res.json({
-            msg: 'success',
-            results:results
-        });
+        res.redirect('/');
+        // res.json({
+        //     msg: 'success',
+        //     results:results
+        // });
     });
 });
 
